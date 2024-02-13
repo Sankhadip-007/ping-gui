@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/clientIpEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Server IP"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/clientPortEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clientIpEditText"
+        android:hint="Port"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/clientMsgEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clientPortEditText"
+        android:hint="Message"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/connectClientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clientMsgEditText"
+        android:text="Connect as Client" />
+
+    <TextView
+        android:id="@+id/clientResponseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/connectClientButton"
+        android:layout_marginTop="16dp"
+        android:text="Client response will appear here"
+        android:textSize="18sp" />
+
+</RelativeLayout>
