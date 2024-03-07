@@ -1,6 +1,7 @@
 package com.example.ping_gui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,25 +22,31 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText serverIpEditText, serverPortEditText, serverMsgEditText;
     private EditText clientIpEditText, clientPortEditText, clientMsgEditText;
-    private Button startServerButton, connectClientButton;
+    private Button startServerButton, connectClientButton,ChangeMode;
     private TextView serverResponseTextView, clientResponseTextView;
-
+    Boolean serverMode = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        serverIpEditText = findViewById(R.id.serverIpEditText);
-        serverPortEditText = findViewById(R.id.serverPortEditText);
-        serverMsgEditText = findViewById(R.id.serverMsgEditText);
-        startServerButton = findViewById(R.id.startServerButton);
-        serverResponseTextView = findViewById(R.id.serverResponseTextView);
-
-        clientIpEditText = findViewById(R.id.clientIpEditText);
-        clientPortEditText = findViewById(R.id.clientPortEditText);
-        clientMsgEditText = findViewById(R.id.clientMsgEditText);
-        connectClientButton = findViewById(R.id.connectClientButton);
-        clientResponseTextView = findViewById(R.id.clientResponseTextView);
+                if(serverMode){
+                    setContentView(R.layout.fragment_server);
+                    serverIpEditText = findViewById(R.id.serverIpEditText);
+                    serverPortEditText = findViewById(R.id.serverPortEditText);
+                    serverMsgEditText = findViewById(R.id.serverMsgEditText);
+                    startServerButton = findViewById(R.id.startServerButton);
+                    serverResponseTextView = findViewById(R.id.serverResponseTextView);
+                    ChangeMode=findViewById(R.id.changeMode);
+                }else{
+                    Log.d("check", "client here: ");
+                    setContentView(R.layout.fragment_client);
+                    clientIpEditText = findViewById(R.id.clientIpEditText);
+                    clientPortEditText = findViewById(R.id.clientPortEditText);
+                    clientMsgEditText = findViewById(R.id.clientMsgEditText);
+                    connectClientButton = findViewById(R.id.connectClientButton);
+                    clientResponseTextView = findViewById(R.id.clientResponseTextView);
+                }
 
         startServerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,13 +54,28 @@ public class MainActivity extends AppCompatActivity {
                 startServer();
             }
         });
+                ChangeMode.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        serverMode =false;
+                        Log.e("toclient","to client");
+                        setContentView(R.layout.fragment_client);
+                        clientIpEditText = findViewById(R.id.clientIpEditText);
+                        clientPortEditText = findViewById(R.id.clientPortEditText);
+                        clientMsgEditText = findViewById(R.id.clientMsgEditText);
+                        connectClientButton = findViewById(R.id.connectClientButton);
+                        clientResponseTextView = findViewById(R.id.clientResponseTextView);
+                    }
+                });
 
-        connectClientButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                connectClient();
-            }
-        });
+                if(!serverMode) {
+                    connectClientButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            connectClient();
+                        }
+                    });
+                }
     }
 
     private void startServer() {
@@ -112,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
                 in.close();
                 out.close();
+
                 socket.close(); */
                 PacketSniffer packetSniffer=new PacketSniffer();
                 packetSniffer.startSniffing1();

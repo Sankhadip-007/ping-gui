@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/serverIpEditText"
@@ -32,6 +34,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/serverMsgEditText"
         android:text="Start Server" />
+
+    <Button
+        android:id="@+id/changeMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/serverMsgEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="111dp"
+        android:layout_toEndOf="@+id/startServerButton"
+        android:text="Go to Client" />
 
     <TextView
         android:id="@+id/serverResponseTextView"
