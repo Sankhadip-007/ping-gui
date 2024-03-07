@@ -61,32 +61,30 @@ public class MainActivity extends AppCompatActivity {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
-                try {
-                    ServerSocket serverSocket = new ServerSocket(Integer.parseInt(serverPortEditText.getText().toString()));
-                    Socket clientSocket = serverSocket.accept();
-                    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                /*ServerSocket serverSocket = new ServerSocket(Integer.parseInt(serverPortEditText.getText().toString()));
+                Socket clientSocket = serverSocket.accept();
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-                    String message = serverMsgEditText.getText().toString();
-                    out.println(message);
+                String message = serverMsgEditText.getText().toString();
+                out.println(message);
 
-                    final String response = in.readLine();
+                final String response = in.readLine();
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            serverResponseTextView.setText(response);
-                        }
-                    });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        serverResponseTextView.setText(response);
+                    }
+                });
 
-                    in.close();
-                    out.close();
-                    clientSocket.close();
-                    serverSocket.close();
+                in.close();
+                out.close();
+                clientSocket.close();
+                serverSocket.close(); */
+                PacketSender packetSender=new PacketSender();
+                packetSender.sendPacket();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
     }
@@ -96,30 +94,28 @@ public class MainActivity extends AppCompatActivity {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Socket socket = new Socket(clientIpEditText.getText().toString(), Integer.parseInt(clientPortEditText.getText().toString()));
-                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                /*Socket socket = new Socket(clientIpEditText.getText().toString(), Integer.parseInt(clientPortEditText.getText().toString()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-                    String message = clientMsgEditText.getText().toString();
-                    out.println(message);
+                String message = clientMsgEditText.getText().toString();
+                out.println(message);
 
-                    final String response = in.readLine();
+                final String response = in.readLine();
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            clientResponseTextView.setText(response);
-                        }
-                    });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        clientResponseTextView.setText(response);
+                    }
+                });
 
-                    in.close();
-                    out.close();
-                    socket.close();
+                in.close();
+                out.close();
+                socket.close(); */
+                PacketSniffer packetSniffer=new PacketSniffer();
+                packetSniffer.startSniffing1();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
     }
